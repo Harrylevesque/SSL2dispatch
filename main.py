@@ -36,7 +36,7 @@ async def find_service(sv_uuid: str, svu_uuid: str):
     if any(x in sv_uuid or x in svu_uuid for x in ("..", "/", "\\")):
         raise HTTPException(status_code=400, detail="Invalid identifiers")
 
-    filepath = f"{sv_uuid}.json"
+    filepath = f"service/{sv_uuid}.json"
     if not os.path.exists(filepath):
         raise HTTPException(status_code=404, detail="Service not found")
 
@@ -50,7 +50,7 @@ async def find_service(sv_uuid: str, svu_uuid: str):
     if not ip:
         raise HTTPException(status_code=500, detail="Missing service_ip in service file")
 
-    requests.get = f"http://{ip}/service/{sv_uuid}/user/find/{svu_uuid}"
+    requests.get = f"https://{ip}/service/{sv_uuid}/user/find/{svu_uuid}"
 
 
 
